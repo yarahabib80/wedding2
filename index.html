@@ -12,7 +12,7 @@ html, body {
   padding: 0;
   height: 100%;
   width: 100%;
-  background-color: #ffd3da; /* light pink background */
+  background-color: #fff7ee; /* off white background */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -26,30 +26,104 @@ html, body {
 h1 {
   font-family: 'Great Vibes', cursive;
   font-size: 10vw; /* responsive large font */
-  color: #B76E79; /* contrast with light pink */
+  color: #74583e; /*/
   margin: 0;
   line-height: 1;
 }
 
 /* Personalized message */
 #message {
-  font-size: 8vw; /* very big to fill screen */
-  color: #B76E79;
+  font-size: 4vw;
+  color: #74583e;
   margin: 20px 0 0 0;
   line-height: 1.2;
 }
 
-/* Optional: responsive adjustments for small screens */
+/* Input field for love message */
+textarea {
+  width: 80%;
+  max-width: 500px;
+  height: 100px;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid #B76E79;
+  margin: 10px 0;
+  resize: none;
+}
+
+/* Buttons */
+button {
+  padding: 15px 30px;
+  margin: 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 40%;
+  max-width: 200px;
+  transition: all 0.2s ease;
+}
+
+button.confirm {
+  background-color: #c8a96a;
+  color: white;
+}
+
+button.confirm:hover {
+  background-color: #b8860b;
+}
+
+button.decline {
+  background-color: #999;
+  color: white;
+}
+
+button.decline:hover {
+  background-color: #555;
+}
+
+/* Submit button */
+button#submit {
+  background-color: #B76E79;
+  color: white;
+  width: 60%;
+}
+
+button#submit:hover {
+  background-color: #a55e6c;
+}
+
+/* Responsive tweaks */
 @media (max-width: 480px) {
   h1 { font-size: 12vw; }
-  #message { font-size: 10vw; }
+  #message, #instructions { font-size: 6vw; }
+  button { width: 70%; font-size: 16px; }
+  button#submit { width: 80%; }
+  textarea { width: 90%; }
 }
 </style>
 </head>
 <body>
 
-<h1>Georges & Yara 🤍</h1>
-<div id="message"></div>
+<div class="container">
+  <h1>Georges & Yara 🤍</h1>
+  <div id="message"></div>
+  <div id="instructions">
+    <p>Honor us with your presence</p>
+    <p id="guest-name"></p>
+    <p>Please reply before June 7, 2026</p>
+    <p>Number of persons invited: <span id="num-guests"></span></p>
+    <p>Are you attending:</p>
+    <div>
+      <button class="confirm" onclick="selectAttendance(true)">Yes</button>
+      <button class="decline" onclick="selectAttendance(false)">No</button>
+    </div>
+    <p>Share your love and wishes:</p>
+    <textarea id="love-message" placeholder="Write your message here..."></textarea>
+    <button id="submit" onclick="submitForm()">Submit</button>
+  </div>
+</div>
 
 <script>
 // Get URL parameters
@@ -57,14 +131,39 @@ const params = new URLSearchParams(window.location.search);
 const name = params.get("name");
 const guests = params.get("guests");
 
-// Fill personalized message
+// Fill personalized sections
 if(name && guests){
-  document.getElementById("message").innerHTML =
-    "Chère <b>" + name + "</b>,<br>" +
-    "<b>" + guests + "</b> place(s) vous sont réservées 🤍";
+  document.getElementById("message").innerHTML = "Chère <b>" + name + "</b>,";
+  document.getElementById("guest-name").innerText = name;
+  document.getElementById("num-guests").innerText = guests;
 } else {
-  document.getElementById("message").innerHTML =
-    "Bienvenue sur notre page de confirmation 🤍";
+  document.getElementById("message").innerHTML = "Bienvenue sur notre page de confirmation 🤍";
+}
+
+// Track RSVP selection
+let attending = null;
+function selectAttendance(choice){
+  attending = choice;
+  if(choice){
+    alert("Merci pour votre confirmation 🤍");
+  } else {
+    alert("Merci de nous avoir informés.");
+  }
+}
+
+// Submit form
+function submitForm(){
+  const loveMsg = document.getElementById("love-message").value;
+  if(attending === null){
+    alert("Please select Yes or No for attendance");
+    return;
+  }
+  alert(
+    "Submitted!\n" +
+    "Attending: " + (attending ? "Yes" : "No") + "\n" +
+    "Message: " + loveMsg
+  );
+  // Here you can later connect to Google Sheets / WhatsApp / Email
 }
 </script>
 
