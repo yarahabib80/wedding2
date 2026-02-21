@@ -6,103 +6,136 @@
 <!-- Google Fonts: Great Vibes for names -->
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
 <style>
-/* Full screen and center everything */
+/* Full screen layout */
 html, body {
   margin: 0;
   padding: 0;
   height: 100%;
   width: 100%;
-  background-color: #fff7ee; /* off white background */
+  background-color: #fff7ee; /* off-white background */
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
-  font-family: Arial, sans-serif; /* fallback */
+  font-family: Arial, sans-serif;
   text-align: center;
   overflow: hidden;
 }
 
-/* Names at the top in calligraphy */
+/* Container filling most of the screen */
+.container {
+  height: 90vh; /* almost full height */
+  width: 95%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around; /* evenly space content */
+  align-items: center;
+  padding: 5px;
+}
+
+/* Wedding names in calligraphy */
 h1 {
   font-family: 'Great Vibes', cursive;
-  font-size: 10vw; /* responsive large font */
-  color: #74583e; /*/
+  font-size: 10vw;
+  color: #74583e; /* brownish color */
   margin: 0;
   line-height: 1;
 }
 
-/* Personalized message */
-#message {
-  font-size: 4vw;
+/* Personalized guest message */
+#message, #guest-name, #num-guests {
+  font-size: 5vw;
   color: #74583e;
-  margin: 20px 0 0 0;
+  margin: 5px 0;
   line-height: 1.2;
 }
 
-/* Input field for love message */
+/* RSVP buttons */
+button.confirm, button.decline {
+  font-size: 4.5vw;
+  padding: 12px 20px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  margin: 5px;
+  width: 40%;
+  max-width: 180px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  transition: all 0.2s ease;
+}
+
+button.confirm {
+  background: linear-gradient(90deg, #c8a96a, #b8860b);
+  color: white;
+}
+button.confirm:hover { transform: scale(1.05); }
+
+button.decline {
+  background: linear-gradient(90deg, #999, #555);
+  color: white;
+}
+button.decline:hover { transform: scale(1.05); }
+
+/* Love message textarea */
 textarea {
   width: 80%;
-  max-width: 500px;
-  height: 100px;
-  padding: 10px;
-  font-size: 16px;
-  border-radius: 8px;
-  border: 1px solid #B76E79;
-  margin: 10px 0;
+  max-width: 350px;
+  height: 70px;
+  padding: 8px;
+  font-size: 4.5vw;
+  border-radius: 10px;
+  border: 2px solid #74583e;
   resize: none;
+  margin: 10px 0;
 }
 
-/* Modern, big, colorful submit button - working */
+/* Modern submit button */
 button#submit {
-  background: linear-gradient(90deg, #ff7eb9, #ff758c); /* gradient pink */
-  color: white !important;
-  font-size: 22px !important;
-  font-weight: bold;
-  padding: 25px 50px !important;
-  border: none !important;
-  border-radius: 20px !important;
+  font-size: 5vw;
+  padding: 12px 25px;
+  border-radius: 15px;
+  border: none;
   cursor: pointer;
-  width: 70% !important;
-  max-width: 400px !important;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+  width: 70%;
+  max-width: 300px;
+  color: white;
+  background: linear-gradient(90deg, #ff7eb9, #ff758c);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
   transition: all 0.3s ease;
 }
-
 button#submit:hover {
-  transform: scale(1.08);
-  box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+  transform: scale(1.05);
   background: linear-gradient(90deg, #ff758c, #ff7eb9);
 }
 
-/* Responsive tweaks */
+/* Responsive tweaks for mobile */
 @media (max-width: 480px) {
-  h1 { font-size: 26vw; }
-  #message, #instructions { font-size: vw; }
-  button { width: 70%; font-size: 20px; }
-  button#submit { width: 80%; }
-  textarea { width: 90%; }
+  h1 { font-size: 12vw; }
+  #message, #guest-name, #num-guests { font-size: 5.5vw; }
+  button.confirm, button.decline, button#submit { font-size: 5vw; }
+  textarea { font-size: 5vw; height: 60px; width: 90%; }
 }
 </style>
 </head>
 <body>
 
 <div class="container">
-  <h1>Georges  &  Yara </h1>
+  <h1>Georges & Yara</h1>
   <div id="message"></div>
-  <div id="instructions">
-    <p>Honor us with your presence</p>
-    <p id="guest-name"></p>
-    <p>Please reply before June 7, 2026</p>
-    <p>Number of persons invited: <span id="num-guests"></span></p>
-    <p>Are you attending:</p>
-    <div>
-      <button class="confirm" onclick="selectAttendance(true)">Yes</button>
-      <button class="decline" onclick="selectAttendance(false)">No</button>
-    </div>
-    <p>Share your love and wishes:</p>
-    <textarea id="love-message" placeholder="Write your message here..."></textarea>
-    <button id="submit" onclick="submitForm()">Submit</button>
+
+  <p>Honor us with your presence</p>
+  <p id="guest-name"></p>
+  <p>Please reply before June 7, 2026</p>
+  <p>Number of persons invited: <span id="num-guests"></span></p>
+
+  <p>Are you attending:</p>
+  <div>
+    <button class="confirm" onclick="selectAttendance(true)">Yes</button>
+    <button class="decline" onclick="selectAttendance(false)">No</button>
   </div>
+
+  <p>Share your love and wishes:</p>
+  <textarea id="love-message" placeholder="Write your message here..."></textarea>
+  <button id="submit" onclick="submitForm()">Submit</button>
 </div>
 
 <script>
@@ -116,7 +149,6 @@ if(name && guests){
   document.getElementById("message").innerHTML = "Chère <b>" + name + "</b>,";
   document.getElementById("guest-name").innerText = name;
   document.getElementById("num-guests").innerText = guests;
-} else {
 }
 
 // Track RSVP selection
@@ -124,7 +156,7 @@ let attending = null;
 function selectAttendance(choice){
   attending = choice;
   if(choice){
-    alert("Merci pour votre confirmation ");
+    alert("Merci pour votre confirmation");
   } else {
     alert("Merci de nous avoir informés");
   }
