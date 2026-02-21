@@ -3,118 +3,68 @@
 <head>
 <meta charset="UTF-8">
 <title>Mariage Georges & Yara</title>
+<!-- Google Fonts: Great Vibes for names -->
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
 <style>
-/* Make body take full screen and center container */
+/* Full screen and center everything */
 html, body {
   margin: 0;
   padding: 0;
   height: 100%;
-  font-family: 'Great Vibes', cursive;
-  background-color: #B76E79 ;
+  width: 100%;
+  background-color: #ffd3da; /* light pink background */
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-/* Container styling */
-.container {
-  background: #ffd3da;
-  padding: 40px 20px;
-  border-radius: 15px;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-  max-width: 600px;       /* Desktop max width */
-  width: 90%;             /* Take 90% of screen on mobile */
-  min-height: 100vh;      /* Full height on mobile */
-  display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  box-sizing: border-box;
-}
-
-/* Header */
-h1 {
-  color: #ffd3da;
-  font-size: 32px;
-  margin-bottom: 20px;
-}
-
-/* Message */
-#message {
-  font-size: 20px;
+  font-family: Arial, sans-serif; /* fallback */
   text-align: center;
-  margin-bottom: 30px;
-  line-height: 1.5;
+  overflow: hidden;
 }
 
-/* Buttons */
-button {
-  padding: 15px 30px;
-  margin: 10px;
-  font-size: 16px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  width: 80%;           /* Full width on mobile */
-  max-width: 250px;
-  transition: all 0.2s ease;
+/* Names at the top in calligraphy */
+h1 {
+  font-family: 'Great Vibes', cursive;
+  font-size: 10vw; /* responsive large font */
+  color: #B76E79; /* contrast with light pink */
+  margin: 0;
+  line-height: 1;
 }
 
-button.confirm {
-  background-color: #c8a96a;
-  color: white;
+/* Personalized message */
+#message {
+  font-size: 8vw; /* very big to fill screen */
+  color: #B76E79;
+  margin: 20px 0 0 0;
+  line-height: 1.2;
 }
 
-button.confirm:hover {
-  background-color: #b8860b;
-}
-
-button.decline {
-  background-color: #999;
-  color: white;
-}
-
-button.decline:hover {
-  background-color: #555;
-}
-
-/* Responsive tweaks */
+/* Optional: responsive adjustments for small screens */
 @media (max-width: 480px) {
-  h1 { font-size: 28px; }
-  #message { font-size: 18px; }
-  button { width: 90%; font-size: 16px; }
+  h1 { font-size: 12vw; }
+  #message { font-size: 10vw; }
 }
 </style>
 </head>
 <body>
 
-<div class="container">
-  <h1>Georges & Yara 🤍</h1>
-  <div id="message"></div>
-  <button class="confirm" onclick="confirmAttendance()">Je confirme ma présence</button>
-  <button class="decline" onclick="declineAttendance()">Je ne pourrai pas venir</button>
-</div>
+<h1>Georges & Yara 🤍</h1>
+<div id="message"></div>
 
 <script>
+// Get URL parameters
 const params = new URLSearchParams(window.location.search);
 const name = params.get("name");
 const guests = params.get("guests");
 
+// Fill personalized message
 if(name && guests){
   document.getElementById("message").innerHTML =
-    "<p>Chère <b>" + name + "</b>,</p>" +
-    "<p>Nous avons le plaisir de vous réserver <b>" + guests + "</b> place(s) pour célébrer notre mariage.</p>";
+    "Chère <b>" + name + "</b>,<br>" +
+    "<b>" + guests + "</b> place(s) vous sont réservées 🤍";
 } else {
   document.getElementById("message").innerHTML =
-    "<p>Bienvenue sur notre page de confirmation 🤍</p>";
-}
-
-function confirmAttendance() {
-  alert("Merci pour votre confirmation 🤍");
-}
-
-function declineAttendance() {
-  alert("Merci de nous avoir informés.");
+    "Bienvenue sur notre page de confirmation 🤍";
 }
 </script>
 
